@@ -1,25 +1,18 @@
-import React from "react";
-import DarkVeil from "./components/DarkVeil";
-import Navbar from "./components/Navbar";
-import Hero from "./pages/Hero";
-
+import Footer from './components/Footer'
+import Navbar from './components/Navbar'
+import Contect from './pages/Contact'
+import Hero from './pages/Hero'
+import GhostCursor from './components/GhostCursor'
 const App = () => {
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
-
-    
-      <div className="fixed inset-0 ">
-        <DarkVeil />
-      </div>
-
-      {/* UI */}
-      <div className="relative z-10">
-        <Navbar />
-        <Hero/>
-      </div>
-
+    <div>
+      <Navbar/>
+      <Hero/>
+      
+      <Contect />
+      <Footer/>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
