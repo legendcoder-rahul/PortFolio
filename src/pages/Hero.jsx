@@ -19,7 +19,7 @@ const imageLogos = [
   { src: "/logos/company3.png", alt: "Company 3", href: "https://company3.com" },
 ];
   return (
-    <div className="text-white h-screen flex flex-col justify-center items-center md:h-screen flex-1 gap-8 w-full px-5">
+    <div className="text-white  bg-transparent h-screen flex flex-col justify-center items-center md:h-screen flex-1 gap-8 w-full px-5">
       <div className="flex justify-center items-center">
       <h1 className="text-5xl md:leading-22 md:h-fit md:w-full text-center max-w-4xl px-10 leading-12 md:text-7xl ">
         Hi, I'm Rahul 👋 <br />A MERN Stack & App Developer
