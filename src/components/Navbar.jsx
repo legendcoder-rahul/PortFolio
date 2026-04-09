@@ -1,108 +1,72 @@
-import { useState, useEffect } from "react";
-import { HiMenu, HiX } from "react-icons/hi";
-import { MdEmail } from "react-icons/md";
+import { useRef, useState } from 'react'
+import logo from '../assets/logo.png'
+import { RiMenu3Fill } from "react-icons/ri";
+import { gsap } from "gsap";
+import { IoCloseSharp } from 'react-icons/io5';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const menuRef = useRef(null)
+  const [isOpen, setIsOpen] = useState(false)
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
-
-  const navLinks = [
-    { label: "Work", href: "#projects" },
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Contact", href: "#contact" },
-  ];
+  const toggleMenu = () => {
+    if (!isOpen) {
+      // open animation
+      gsap.to(menuRef.current, {
+        x: "0%",
+        duration: 0.8,
+        ease: "power3.out"
+      })
+    } else {
+      // close animation
+      gsap.to(menuRef.current, {
+        x: "100%",
+        duration: 0.8,
+        ease: "power3.in"
+      })
+    }
+    setIsOpen(!isOpen)
+  }
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-gray-950/80 backdrop-blur-md border-b border-gray-800"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <h1 className="text-xl md:text-2xl font-black tracking-wider text-white">
-              <p>PortFolio</p>
-            </h1>
-          </div>
+    <nav className='bg-[#0a0a0a] w-full h-20 flex items-center justify-center pt-10'>
+      
+      <div className="bg-black flex justify-between items-center w-[90%] h-20 mx-auto my-4 rounded-2xl px-4">
+        
+        <img className='invert h-20' src={logo} alt="Logo" />
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm uppercase tracking-widest text-gray-400 hover:text-white transition-colors font-semibold"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
+        <button 
+          onClick={toggleMenu}
+          className='bg-white text-black h-10 w-20 mx-4 rounded-2xl flex items-center justify-center md:hidden'>
+          <RiMenu3Fill className='text-2xl' />
+        </button>
 
-          {/* Right side actions */}
-          <div className="flex items-center gap-4">
-            <a
-              href="mailto:hello@rahul.dev"
-              className="hidden md:flex items-center gap-2 text-white hover:text-blue-400 transition-colors"
-              title="Send email"
-            >
-              <MdEmail className="w-5 h-5" />
-            </a>
+          <ul className='hidden md:flex gap-10 text-xl'>
+            <li>Services</li>
+            <li>Project</li>
+            <li>About</li>
+          </ul>
+          <button className='hidden md:block bg-white text-black h-10 w-25 mx-4 rounded-2xl flex items-center justify-center text-[16px]'>
+            Let's Talk
+          </button>
+      </div>
 
-            {/* Mobile menu button */}
-            <button
-              onClick={toggleMenu}
-              className="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
-            >
-              {isOpen ? (
-                <HiX className="w-6 h-6" />
-              ) : (
-                <HiMenu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-        </div>
+      
+      <div 
+        ref={menuRef}
+        className='fixed top-0 left-0 w-full h-screen bg-black text-white translate-x-full'>
+        
+          <IoCloseSharp onClick={toggleMenu} className='absolute top-10 right-10 text-4xl cursor-pointer' />
+        <ul className='flex flex-col items-center justify-center h-full gap-10 text-7xl'>
+          <li>Services</li>
+          <li>Project</li>
+          <li>About</li>
+          <li>Let's Talk</li>
+        </ul>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden bg-gray-950 border-t border-gray-800 p-4 space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={closeMenu}
-                className="block px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200 uppercase tracking-widest text-sm font-semibold"
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="mailto:hello@rahul.dev"
-              onClick={closeMenu}
-              className="block w-full px-4 py-3 mt-4 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 text-center uppercase tracking-widest text-sm"
-            >
-              Say Hello
-            </a>
-          </div>
-        )}
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

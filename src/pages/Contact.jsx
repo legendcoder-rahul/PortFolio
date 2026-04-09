@@ -98,7 +98,7 @@ const Contact = () => {
     <div
       id="contact"
       ref={sectionRef}
-      className="w-full py-20 md:py-32 px-6 md:px-12 lg:px-20"
+      className="w-full bg-[#0e1117] py-20 md:py-32 px-6 md:px-12 lg:px-20"
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">

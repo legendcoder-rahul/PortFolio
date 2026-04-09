@@ -1,141 +1,168 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MdArrowForward } from 'react-icons/md';
+import { useState, useEffect, useRef } from "react";
 
-gsap.registerPlugin(ScrollTrigger);
+const ROLES = ["Creative Developer", "UI/UX Designer", "Digital Craftsman", "Motion Artist"];
 
-const Hero = () => {
-  const heroRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const descRef = useRef(null);
-  const buttonsRef = useRef(null);
+function useScramble(text, trigger) {
+  const [display, setDisplay] = useState(text);
+  const chars = "!<>-_\\/[]{}—=+*^?#@$%&ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   useEffect(() => {
-    // Set initial state
-    if (titleRef.current) {
-      titleRef.current.style.opacity = '0';
-      titleRef.current.style.transform = 'translateY(40px)';
-    }
-    if (subtitleRef.current) {
-      subtitleRef.current.style.opacity = '0';
-      subtitleRef.current.style.transform = 'translateY(40px)';
-    }
-    if (descRef.current) {
-      descRef.current.style.opacity = '0';
-      descRef.current.style.transform = 'translateY(40px)';
-    }
-    if (buttonsRef.current) {
-      Array.from(buttonsRef.current.children).forEach((child) => {
-        child.style.opacity = '0';
-        child.style.transform = 'translateY(20px)';
-      });
-    }
+    if (!trigger) return;
+    let frame = 0;
+    let interval;
+    const totalFrames = 18;
 
-    // Animate in sequence
-    const timeline = gsap.timeline();
-    
-    timeline
-      .to(titleRef.current, {
-        duration: 0.8,
-        opacity: 1,
-        y: 0,
-        ease: 'power3.out',
-      }, 0)
-      .to(subtitleRef.current, {
-        duration: 0.8,
-        opacity: 1,
-        y: 0,
-        ease: 'power3.out',
-      }, 0.15)
-      .to(descRef.current, {
-        duration: 0.8,
-        opacity: 1,
-        y: 0,
-        ease: 'power3.out',
-      }, 0.3)
-      .to(buttonsRef.current?.children || [], {
-        duration: 0.6,
-        opacity: 1,
-        y: 0,
-        stagger: 0.1,
-        ease: 'power3.out',
-      }, 0.5);
+    interval = setInterval(() => {
+      frame++;
+      setDisplay(
+        text.split("").map((char, i) => {
+          if (char === " ") return " ";
+          if (frame / totalFrames > i / text.length) return char;
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join("")
+      );
 
-    return () => timeline.kill();
+      if (frame >= totalFrames + text.length) clearInterval(interval);
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [trigger, text]);
+
+  return display;
+}
+
+const PROJECTS = [
+  { num: "01", title: "Nebula OS", tag: "UI Design · Motion", year: "2024" },
+  { num: "02", title: "Flux Commerce", tag: "Web Dev · Branding", year: "2024" },
+  { num: "03", title: "Aether App", tag: "Product Design", year: "2023" },
+];
+
+const SKILLS = ["React", "Three.js", "GSAP", "Figma", "Next.js", "WebGL", "Framer", "CSS Art"];
+
+export default function Portfolio() {
+  const [loaded, setLoaded] = useState(false);
+  const [roleIdx, setRoleIdx] = useState(0);
+  const [scrambleTrigger, setScrambleTrigger] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoaded(true);
+      setTimeout(() => setScrambleTrigger(true), 400);
+    }, 200);
   }, []);
 
+  useEffect(() => {
+    const cycle = setInterval(() => {
+      setRoleIdx(i => (i + 1) % ROLES.length);
+    }, 2500);
+
+    return () => clearInterval(cycle);
+  }, []);
+
+  const nameDisplay = useScramble("RAHUL", scrambleTrigger);
+
   return (
-    <div
-      id="home"
-      ref={heroRef}
-      className="relative min-h-screen w-full flex flex-col justify-center items-start overflow-hidden pt-24 md:pt-32 px-6 md:px-12 lg:px-20"
-    >
-      <div className="max-w-6xl w-full">
-        {/* Main Title */}
-        <div ref={titleRef} className="mb-6">
-          <p className="text-xs md:text-sm uppercase tracking-widest text-blue-400 mb-4 font-semibold">
-            EMAIL — PORTFOLIO 2026
+    <div className="min-h-screen bg-[#050507] text-[#e8e4d9] font-mono overflow-hidden">
+
+      {/* HERO */}
+      <section className="px-6 md:px-12 pt-20 pb-16">
+
+        {/* Role */}
+        <div className="flex items-center gap-2 mb-6">
+          <div className="w-2 h-2 bg-lime-400 rounded-full animate-pulse" />
+          <span className="text-xs tracking-widest text-gray-500 uppercase">
+            {ROLES[roleIdx]}
+          </span>
+        </div>
+
+        {/* Name */}
+        <h1 className={`font-black leading-none text-[clamp(60px,15vw,180px)] transition-all duration-700 ${
+          loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}>
+          {nameDisplay}
+        </h1>
+
+        {/* Outline */}
+        <h2 className="font-black leading-none text-[clamp(60px,15vw,180px)] text-transparent stroke-text mb-8">
+          DESIGNS
+        </h2>
+
+        {/* Bottom */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mt-6">
+          <p className="text-sm text-gray-500 max-w-sm leading-relaxed">
+            Crafting digital experiences at the intersection of design & code.
           </p>
-          <h1 className="text-5xl md:text-8xl lg:text-9xl font-black leading-tight">
-            <span className="text-white">CREATIVE</span>
-            <br />
-            <span className="text-white">DEVELOPER</span>
-          </h1>
+
+          <div className="flex gap-4">
+            <button className="px-6 py-3 bg-lime-400 text-black rounded-full text-xs tracking-widest uppercase hover:shadow-lg hover:shadow-lime-400/40 transition">
+              View Work ↗
+            </button>
+
+            <button className="px-6 py-3 border border-gray-700 rounded-full text-xs tracking-widest uppercase hover:bg-white/5 transition">
+              Resume ↓
+            </button>
+          </div>
         </div>
 
-        {/* Subtitle */}
-        <div ref={subtitleRef}>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-500 mb-8">
-            BUILDING THE WEB'S<br />FUTURE
-          </h2>
-        </div>
+      </section>
 
-        {/* Description */}
-        <div ref={descRef} className="max-w-2xl mb-12">
-          <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-            Architecting immersive digital experiences through the fusion of high-end aesthetics and high-performance engineering. Specialized in the MERN stack.
-          </p>
-        </div>
+      {/* STATS */}
+      <section className="flex border-t border-gray-800">
+        {[
+          { n: "47+", label: "Projects" },
+          { n: "99%", label: "Satisfaction" },
+          { n: "1000", label: "github contributions" },
+        ].map((s, i) => (
+          <div key={i} className="p-10 border-r last:border-none border-gray-800">
+            <div className="text-5xl font-black">{s.n}</div>
+            <div className="text-xs tracking-widest text-gray-500 mt-2 uppercase">
+              {s.label}
+            </div>
+          </div>
+        ))}
+      </section>
 
-        {/* Action Buttons */}
-        <div ref={buttonsRef} className="flex gap-4 flex-wrap">
-          <a
-            href="#projects"
-            className="px-8 py-3 md:py-4 md:px-10 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 inline-flex items-center gap-2"
+      {/* PROJECTS */}
+      <section className="px-6 md:px-12 py-16">
+        <h3 className="text-xs tracking-widest text-gray-500 uppercase mb-6">
+          Selected Work
+        </h3>
+
+        {PROJECTS.map((p, i) => (
+          <div
+            key={i}
+            className="flex justify-between items-center py-6 border-t border-gray-800 group hover:bg-white/5 transition"
           >
-            <span>Explore Work</span>
-            <MdArrowForward className="w-5 h-5" />
-          </a>
-          
-          <a
-            href="#contact"
-            className="px-8 py-3 md:py-4 md:px-10 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105"
-          >
-            Get in Touch
-          </a>
-        </div>
-      </div>
+            <span className="text-gray-600 text-xs">{p.num}</span>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
-        <svg
-          className="w-6 h-6 text-gray-600 animate-bounce"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
-      </div>
+            <span className="flex-1 px-6 font-bold text-lg group-hover:tracking-widest transition">
+              {p.title}
+            </span>
+
+            <span className="text-gray-500 text-xs">{p.tag}</span>
+            <span className="text-gray-600 text-xs w-12 text-right">{p.year}</span>
+
+            <span className="ml-4 w-8 h-8 flex items-center justify-center border border-gray-700 rounded-full group-hover:border-lime-400 group-hover:text-lime-400 transition">
+              ↗
+            </span>
+          </div>
+        ))}
+
+        <div className="border-b border-gray-800" />
+      </section>
+
+      {/* SKILLS */}
+      <section className="px-6 md:px-12 pb-16 flex flex-wrap gap-3">
+        {SKILLS.map((s) => (
+          <span
+            key={s}
+            className="px-4 py-2 text-xs border border-gray-700 rounded-full uppercase tracking-widest text-gray-500 hover:text-lime-400 hover:border-lime-400 transition"
+          >
+            {s}
+          </span>
+        ))}
+      </section>
+
     </div>
   );
-};
-
-export default Hero;
+}

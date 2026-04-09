@@ -1,26 +1,21 @@
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Hero from "./pages/Hero";
 import Projects from "./pages/Projects";
-import DarkVeil from "./components/DarkVeil";
+
 
 const App = () => {
   return (
-    <div className="relative w-full">
-      {/* 🔥 Aurora Background  */}
-      <div className="fixed inset-0 -z-10">
-       <DarkVeil/>
-      </div> 
-
-      {/* 🧱 Foreground UI */}
-      <div className="relative z-10">
+    <div className="bg-[#0a0a0a] w-full h-screen">
         <Navbar />
         <Hero />
+        <About />
         <Projects />
-        <Contact />
+        {/* <Contact /> */}
         <Footer />
-      </div>
+
     </div>
   );
 };
