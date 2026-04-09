@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import resume from '../../public/Resume.pdf'
 
 const ROLES = ["Creative Developer", "UI/UX Designer", "Digital Craftsman", "Motion Artist"];
 
@@ -76,31 +77,32 @@ export default function Portfolio() {
         </div>
 
         {/* Name */}
-        <h1 className={`font-black leading-none text-[clamp(60px,15vw,180px)] transition-all duration-700 ${
-          loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        }`}>
+        <h1 className={`font-black leading-none text-[clamp(60px,15vw,180px)] transition-all duration-700 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}>
           {nameDisplay}
         </h1>
 
         {/* Outline */}
-        <h2 className="font-black leading-none text-[clamp(60px,15vw,180px)] text-transparent stroke-text mb-8">
-          DESIGNS
+        <h2 className="font-black leading-none text-4xl  stroke-text mb-8">
+          software developer & designer
         </h2>
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mt-6">
           <p className="text-sm text-gray-500 max-w-sm leading-relaxed">
-            Crafting digital experiences at the intersection of design & code.
-          </p>
+            Every detail we craft carries clarity, intention,
+            and quiet confidence. That’s how we design
+            and build websites that work — and feel
+            right. </p>
 
           <div className="flex gap-4">
             <button className="px-6 py-3 bg-lime-400 text-black rounded-full text-xs tracking-widest uppercase hover:shadow-lg hover:shadow-lime-400/40 transition">
               View Work ↗
             </button>
 
-            <button className="px-6 py-3 border border-gray-700 rounded-full text-xs tracking-widest uppercase hover:bg-white/5 transition">
+            <a href={resume} download className="px-6 py-3 border border-gray-700 rounded-full text-xs tracking-widest uppercase hover:bg-white/5 transition">
               Resume ↓
-            </button>
+            </a>
           </div>
         </div>
 

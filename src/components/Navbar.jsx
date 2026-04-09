@@ -29,35 +29,35 @@ const Navbar = () => {
   }
 
   return (
-    <nav className='bg-[#0a0a0a] w-full h-20 flex items-center justify-center pt-10'>
-      
-      <div className="bg-black flex justify-between items-center w-[90%] h-20 mx-auto my-4 rounded-2xl px-4">
-        
-        <img className='invert h-20' src={logo} alt="Logo" />
+    <nav className='bg-[#050508] w-full h-20 flex items-center justify-center pt-4'>
 
-        <button 
+      <div className="bg-black flex justify-between items-center w-[90%] h-16 mx-auto rounded-2xl px-4">
+
+        <img className='invert h-18' src={logo} alt="Logo" />
+
+        <button
           onClick={toggleMenu}
           className='bg-white text-black h-10 w-20 mx-4 rounded-2xl flex items-center justify-center md:hidden'>
           <RiMenu3Fill className='text-2xl' />
         </button>
 
-          <ul className='hidden md:flex gap-10 text-xl'>
-            <li>Services</li>
-            <li>Project</li>
-            <li>About</li>
-          </ul>
-          <button className='hidden md:block bg-white text-black h-10 w-25 mx-4 rounded-2xl flex items-center justify-center text-[16px]'>
-            Let's Talk
-          </button>
+        <ul className='hidden md:flex gap-10 text-xl'>
+          <li>Services</li>
+          <li>Project</li>
+          <li>About</li>
+        </ul>
+        <button className='hidden md:block bg-white text-black h-10 w-24 mx-4 rounded-2xl flex items-center justify-center text-[16px]'>
+          Let's Talk
+        </button>
       </div>
 
-      
-      <div 
+
+      <div
         ref={menuRef}
-        className='fixed top-0 left-0 w-full h-screen bg-black text-white translate-x-full'>
-        
-          <IoCloseSharp onClick={toggleMenu} className='absolute top-10 right-10 text-4xl cursor-pointer' />
-        <ul className='flex flex-col items-center justify-center h-full gap-10 text-7xl'>
+        className='fixed top-0 left-0 w-full h-screen bg-black text-white translate-x-full z-50'>
+
+        <IoCloseSharp onClick={toggleMenu} className='absolute top-10 right-10 text-4xl cursor-pointer' />
+        <ul className='flex flex-col items-center justify-center h-full gap-10 text-5xl'>
           <li>Services</li>
           <li>Project</li>
           <li>About</li>
