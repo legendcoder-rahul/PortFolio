@@ -38,7 +38,7 @@ const PROJECTS = [
   { num: "03", title: "Aether App", tag: "Product Design", year: "2023" },
 ];
 
-const SKILLS = ["React", "Three.js", "GSAP", "Figma", "Next.js", "WebGL", "Framer", "CSS Art"];
+const SKILLS = ["Html","Css","JavaScript","TypeScript","React","Node.js","Express","MongoDB","GenAI", "Three.js", "GSAP", "Figma", "Next.js", "WebGL", "Framer", "Scss","tailwind Css"];
 
 export default function Portfolio() {
   const [loaded, setLoaded] = useState(false);
