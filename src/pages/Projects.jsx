@@ -187,7 +187,7 @@ const Projects = () => {
   }
 
   return (
-    <div ref={containerRef} className="bg-[#0a0a0a] text-white w-full min-h-screen">
+    <div id="projects" ref={containerRef} className="bg-[#0a0a0a] text-white w-full min-h-screen">
 
       {/* ══ DESKTOP ══ */}
       <div className="hidden md:flex w-full min-h-screen">

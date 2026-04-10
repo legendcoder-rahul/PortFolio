@@ -63,7 +63,7 @@ export default function Portfolio() {
   const nameDisplay = useScramble("RAHUL", scrambleTrigger);
 
   return (
-    <div className="min-h-screen bg-[#050507] text-[#e8e4d9] font-mono overflow-hidden">
+    <div id="hero" className="min-h-screen bg-[#050507] text-[#e8e4d9] font-mono overflow-hidden">
 
       {/* HERO */}
       <section className="px-6 md:px-12 pt-20 pb-16">

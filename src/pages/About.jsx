@@ -38,7 +38,7 @@ export default function ScrollTextAnimation() {
   const words = text.split(" ");
 
   return (
-    <div className="bg-[#0e1117] min-h-screen">
+    <div id="about" className="bg-[#0e1117] min-h-screen">
 
       {/* Animated text section */}
       <section className="min-h-screen flex items-center px-4 sm:px-6 md:px-8 lg:px-[8vw] py-12 sm:py-16 md:py-20">
