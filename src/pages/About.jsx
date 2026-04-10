@@ -14,20 +14,20 @@ export default function ScrollTextAnimation() {
     const para = paraRef.current;
     if (!para) return;
 
-    const wordEls = para.querySelectorAll(".word");
+    const letterEls = para.querySelectorAll(".letter");
 
     const ctx = gsap.context(() => {
-      gsap.to(wordEls, {
+      gsap.to(letterEls, {
         x: 0,
         opacity: 1,
-        duration: 0.6,
-        ease: "power3.out",
-        stagger: 0.05,
+        duration: 0.3,
+        ease: "power2.out",
+        stagger: 0.008,
         scrollTrigger: {
           trigger: para,
           start: "top 80%",
           end: "bottom 30%",
-          scrub: 1.2, // reverses on scroll up
+          scrub: 1.2,
         },
       });
     }, para);
@@ -35,28 +35,30 @@ export default function ScrollTextAnimation() {
     return () => ctx.revert();
   }, []);
 
-  const words = text.split(" ");
+  const characters = text.split("");
 
   return (
-    <div id="about" className="bg-[#0e1117] min-h-screen">
+    <div id="about" className="min-h-screen">
 
       {/* Animated text section */}
       <section className="min-h-screen flex items-center px-4 sm:px-6 md:px-8 lg:px-[8vw] py-12 sm:py-16 md:py-20">
         <p
           ref={paraRef}
           className="text-white text-[clamp(1.2rem,5vw,2.8rem)] leading-[1.3] sm:leading-relaxed font-light max-w-4xl"
+          style={{ wordSpacing: "0px" }}
         >
-          {words.map((word, i) => (
+          {characters.map((char, i) => (
             <span
               key={i}
-              className="inline-block overflow-hidden align-bottom mr-[0.28em]"
+              className="letter"
+              style={{ 
+                display: "inline",
+                transform: "translateX(30px)", 
+                opacity: 0,
+                transformOrigin: "left center"
+              }}
             >
-              <span
-                className="word inline-block"
-                style={{ transform: "translateX(120px)", opacity: 0 }}
-              >
-                {word}
-              </span>
+              {char}
             </span>
           ))}
         </p>

@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import Hero from "./pages/Hero";
 import Projects from "./pages/Projects";
 import ErrorPage from "./pages/ErrorPage";
+import Contributions from './components/GithubContribution'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
                 <Navbar />
                 <Hero />
                 <About />
+                <Contributions />
                 <Projects />
                 {/* <Contact /> */}
                 <Footer />

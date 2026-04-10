@@ -187,13 +187,14 @@ const Projects = () => {
   }
 
   return (
-    <div id="projects" ref={containerRef} className="bg-[#0a0a0a] text-white w-full min-h-screen">
+    <div id="projects" ref={containerRef} className="bg-[#0a0a0a] mt-20 text-white w-full min-h-screen">
 
       {/* ══ DESKTOP ══ */}
       <div className="hidden md:flex w-full min-h-screen">
 
         {/* Left sticky panel */}
-        <div className="desk-left sticky top-0 h-screen w-[44%] p-10 overflow-hidden">
+        <div className="desk-left md:right-0
+        md:mx-50 sticky top-0 h-screen w-[44%] p-10 overflow-hidden">
           <div className="relative w-full h-full">
             {projects.map((project, i) => (
               <div
@@ -211,7 +212,7 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full md:h-full md:flex md:justify-between object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   />
                 </div>
 
