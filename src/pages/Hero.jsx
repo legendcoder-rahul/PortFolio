@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import resume from '../../public/Resume.pdf'
+import resume from '../assets/Resume.pdf';
 
 const ROLES = ["Creative Developer", "UI/UX Designer", "Digital Craftsman", "Motion Artist"];
 
