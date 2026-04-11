@@ -9,7 +9,7 @@ import Hero from "./pages/Hero";
 import Model from "./components/Model";
 import Projects from "./pages/Projects";
 import ErrorPage from "./pages/ErrorPage";
-import Contributions from './components/githubContribution'
+import Contributions from './components/GithubContribution'
 
 const App = () => {
   return (
