@@ -31,7 +31,12 @@ function useScramble(text, trigger) {
 
   return display;
 }
-
+const handleScroll = (targetId) => {
+  const elem = document.getElementById(targetId);
+  if (elem) {
+    elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
 const PROJECTS = [
   { num: "01", title: "Nebula OS", tag: "UI Design · Motion", year: "2024" },
   { num: "02", title: "Flux Commerce", tag: "Web Dev · Branding", year: "2024" },
@@ -96,7 +101,7 @@ export default function Portfolio() {
             right. </p>
 
           <div className="flex gap-4">
-            <button className="px-6 py-3 bg-lime-400 text-black rounded-full text-xs tracking-widest uppercase hover:shadow-lg hover:shadow-lime-400/40 transition">
+            <button onClick={() => handleScroll('projects')} className="px-6 py-3 bg-lime-400 text-black rounded-full text-xs tracking-widest uppercase hover:shadow-lg hover:shadow-lime-400/40 transition">
               View Work ↗
             </button>
 
@@ -109,7 +114,7 @@ export default function Portfolio() {
       </section>
 
       {/* STATS */}
-      <section className="flex border-t border-gray-800">
+      <section className="flex border-t border-gray-800 md:flex-row text-center md:text-left md:justify-center md:gap-20 md:items-center">
         {[
           { n: "47+", label: "Projects" },
           { n: "99%", label: "Satisfaction" },

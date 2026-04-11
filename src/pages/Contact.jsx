@@ -5,7 +5,7 @@ const Contact = () => {
   const emailid = useId();
   const messageid = useId();
   return (
-    <div className="h-140 md:flex md:m-10 md:justify-center">
+    <div className="h-full mb-10 md:flex md:m-10 md:justify-center">
       <div className="h-[50%] px-5 py-10">
         <h1 className="text-6xl font-semibold md:text-9xl">LET'S GET IN TOUCH</h1>
         <p className="text-[1rem] w-60 pt-5 md:text-2xl md:w-full">
@@ -16,7 +16,7 @@ const Contact = () => {
         <form>
           <div className="grid grid-cols-2 gap-4  ">
             <div>
-              <label className="block mb-2" htmlFor={nameid}>
+              <label className="block mb-2" htmlFor={nameid}>``
                 FULL NAME
               </label>
               <input className="border border-gray-600 outline-none w-full p-2 md:py-5 rounded" placeholder="Enter Name" type="text" id={nameid} />

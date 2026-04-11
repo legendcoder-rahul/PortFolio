@@ -6,9 +6,10 @@ import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Hero from "./pages/Hero";
+import Model from "./components/Model";
 import Projects from "./pages/Projects";
 import ErrorPage from "./pages/ErrorPage";
-import Contributions from './components/GithubContribution'
+import Contributions from './components/githubContribution'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
               <>
                 <Navbar />
                 <Hero />
+                <Model />
                 <About />
                 <Contributions />
                 <Projects />

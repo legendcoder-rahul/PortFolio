@@ -145,10 +145,10 @@ const MobileItem = ({ project }) => {
 const Projects = () => {
   const containerRef = useRef(null)
   const titleRefs = useRef([])
-  const detailRefs = useRef([])
+  const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
-    if (window.innerWidth < 768) return
+    if (window.innerWidth < 1024) return
 
     const ctx = gsap.context(() => {
       // Entry animation
@@ -160,8 +160,8 @@ const Projects = () => {
           trigger: titleRefs.current[i],
           start: 'top 56%',
           end: 'bottom 44%',
-          onEnter: () => activate(i),
-          onEnterBack: () => activate(i),
+          onEnter: () => setActiveIndex(i),
+          onEnterBack: () => setActiveIndex(i),
         })
       })
     }, containerRef)
@@ -169,78 +169,49 @@ const Projects = () => {
     return () => ctx.revert()
   }, [])
 
-  const activate = (index) => {
-    titleRefs.current.forEach((el, i) => {
-      if (!el) return
-      gsap.to(el, { color: i === index ? '#fff' : '#222', duration: 0.35, ease: 'power2.out' })
-    })
-    detailRefs.current.forEach((el, i) => {
-      if (!el) return
-      gsap.to(el, {
-        opacity: i === index ? 1 : 0,
-        y: i === index ? 0 : 14,
-        duration: i === index ? 0.5 : 0.25,
-        ease: i === index ? 'power3.out' : 'power2.in',
-        pointerEvents: i === index ? 'auto' : 'none',
-      })
-    })
-  }
-
   return (
     <div id="projects" ref={containerRef} className="bg-[#0a0a0a] mt-20 text-white w-full min-h-screen">
 
       {/* ══ DESKTOP ══ */}
-      <div className="hidden md:flex w-full min-h-screen">
+      <div className="hidden lg:flex w-full min-h-screen gap-4 xl:gap-8 px-3 lg:px-6 xl:px-10">
 
         {/* Left sticky panel */}
-        <div className="desk-left md:right-0
-        md:mx-50 sticky top-0 h-screen w-[44%] p-10 overflow-hidden">
+        <div className="desk-left sticky top-0 h-screen w-[52%] py-8 px-4 lg:px-6 xl:px-8 overflow-hidden">
           <div className="relative w-full h-full">
-            {projects.map((project, i) => (
-              <div
-                key={project.id}
-                ref={(el) => (detailRefs.current[i] = el)}
-                className="absolute inset-0 flex flex-col"
-                style={{
-                  opacity: i === 0 ? 1 : 0,
-                  transform: `translateY(${i === 0 ? 0 : 14}px)`,
-                  pointerEvents: i === 0 ? 'auto' : 'none',
-                }}
-              >
-                {/* Image — fixed height */}
-                <div className="w-full h-full rounded-sm overflow-hidden" style={{ height: '280px', flexShrink: 0 }}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full md:h-full md:flex md:justify-between object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                  />
-                </div>
+            <div
+              key={projects[activeIndex].id}
+              className="absolute inset-0 flex flex-col transition-opacity duration-300"
+            >
+              <div className="w-full rounded-sm overflow-hidden h-[300px] xl:h-[340px]" style={{ flexShrink: 0 }}>
+                <img
+                  src={projects[activeIndex].image}
+                  alt={projects[activeIndex].title}
+                  className="w-full h-full md:h-full md:flex md:justify-between object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                />
+              </div>
 
-                {/* Meta rows */}
-                <div className="mt-4">
-                  <Row label="Overview" value={project.overview} />
-                  <Row label="Technologies" value={project.technologies} />
-                  <Row label="Industry" value={project.industry} />
-                  <Row label="Client" value={project.client} />
-                  <div className="flex gap-6 pt-4 border-t border-[#1f1f1f]">
-                    <a href={project.github} className="text-[#555] hover:text-white text-xs tracking-widest uppercase transition-colors">Github ↗</a>
-                    <a href={project.demo} className="text-[#555] hover:text-white text-xs tracking-widest uppercase transition-colors">Live Demo ↗</a>
-                  </div>
+              <div className="mt-4">
+                <Row label="Overview" value={projects[activeIndex].overview} />
+                <Row label="Technologies" value={projects[activeIndex].technologies} />
+                <Row label="Industry" value={projects[activeIndex].industry} />
+                <Row label="Client" value={projects[activeIndex].client} />
+                <div className="flex gap-6 pt-4 border-t border-[#1f1f1f]">
+                  <a href={projects[activeIndex].github} className="text-[#555] hover:text-white text-xs tracking-widest uppercase transition-colors">Github ↗</a>
+                  <a href={projects[activeIndex].demo} className="text-[#555] hover:text-white text-xs tracking-widest uppercase transition-colors">Live Demo ↗</a>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
 
         {/* Right scrolling titles */}
-        <div className="desk-right w-[56%] flex flex-col pt-[28vh] pb-[45vh] pl-10 pr-10">
+        <div className="desk-right w-[48%] flex flex-col pt-[24vh] pb-[36vh] px-2 lg:px-4 xl:px-8">
           <span className="text-[#2a2a2a] text-[10px] tracking-[0.4em] uppercase mb-14">2025</span>
           {projects.map((project, i) => (
             <div
               key={project.id}
               ref={(el) => (titleRefs.current[i] = el)}
-              className="mb-3 group cursor-default"
-              style={{ color: i === 0 ? '#ffffff' : '#222' }}
+              className={`mb-3 group cursor-default transition-colors duration-300 ${i === activeIndex ? 'text-white' : 'text-[#222]'}`}
             >
               <h2
                 className="font-black leading-none tracking-tighter transition-transform duration-300 ease-out group-hover:translate-x-2"
@@ -257,7 +228,7 @@ const Projects = () => {
       </div>
 
       {/* ══ MOBILE ══ */}
-      <div className="flex md:hidden flex-col w-full pt-10">
+      <div className="flex lg:hidden flex-col w-full pt-10">
         <div className="px-5 mb-4">
           <span className="text-[#2a2a2a] text-[10px] tracking-[0.4em] uppercase">2025 — Projects</span>
         </div>
