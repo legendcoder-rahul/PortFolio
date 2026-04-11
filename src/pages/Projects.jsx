@@ -30,7 +30,7 @@ const projects = [
     industry: 'Creative · Personal',
     client: 'Self',
     github: 'https://github.com/legendcoder-rahul/Perplexity',
-    demo: 'perplexity-seven-smoky.vercel.app',
+    demo: 'https://perplexity-seven-smoky.vercel.app',
   },
   {
     id: 3,
@@ -63,7 +63,7 @@ const projects = [
     industry: 'Developer Tools',
     client: 'Open Source',
     github: 'https://github.com/legendcoder-rahul/Netflix',
-    demo: 'netflix-nu-two.vercel.app',
+    demo: 'https://netflix-nu-two.vercel.app',
   },
 ]
 
